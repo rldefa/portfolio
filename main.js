@@ -4,6 +4,9 @@ import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 
 import { moon } from "./objects/moon.js";
 import { rhdevs } from "./objects/rhdevs.js";
+
+import spacebg from "./assets/milky-way.jpeg";
+
 // Setup
 
 const scene = new THREE.Scene();
@@ -21,10 +24,6 @@ const renderer = new THREE.WebGLRenderer({
 
 renderer.setPixelRatio(window.devicePixelRatio);
 renderer.setSize(window.innerWidth, window.innerHeight);
-
-const cameraZ = 8;
-
-camera.position.setZ(cameraZ);
 
 renderer.render(scene, camera);
 
@@ -57,11 +56,11 @@ function addStar() {
   scene.add(star);
 }
 
-Array(200).fill().forEach(addStar);
+Array(400).fill().forEach(addStar);
 
 // Background
 
-const spaceTexture = new THREE.TextureLoader().load("./assets/milky-way.jpeg");
+const spaceTexture = new THREE.TextureLoader().load(spacebg);
 scene.background = spaceTexture;
 
 // Avatar
@@ -76,7 +75,7 @@ rhdevs.position.x = 8;
 scene.add(moon);
 
 moon.position.x = 8;
-moon.position.z = 35;
+moon.position.z = 50;
 
 // Scroll Animation
 
@@ -89,30 +88,30 @@ function moveCamera() {
     camera.rotation.x = (tiltDistance + t) * 0.001;
   }
 
-  camera.position.z = 100 + (t + tiltDistance) * 0.05;
+  camera.position.z = 90 + (t + tiltDistance) * 0.01;
 }
 
-function fadeTitle() {
-  const header = document.getElementById("header");
+// function fadeTitle() {
+//   const header = document.getElementById("header");
 
-  const distanceToTop = window.pageYOffset + header.getBoundingClientRect().top;
-  const headerHeight = header.offsetHeight;
-  const scrollTop = document.documentElement.scrollTop;
+//   const distanceToTop = window.pageYOffset + header.getBoundingClientRect().top;
+//   const headerHeight = header.offsetHeight;
+//   const scrollTop = document.documentElement.scrollTop;
 
-  let opacity = 1;
+//   let opacity = 1;
 
-  if (scrollTop > distanceToTop) {
-    opacity = 1 - ((scrollTop - distanceToTop) / headerHeight) * 2;
-  }
+//   if (scrollTop > distanceToTop) {
+//     opacity = 1 - ((scrollTop - distanceToTop) / headerHeight) * 2;
+//   }
 
-  if (opacity >= 0) {
-    header.style.opacity = opacity;
-  }
-}
+//   if (opacity >= 0) {
+//     header.style.opacity = opacity;
+//   }
+// }
 
 function handleScroll() {
   moveCamera();
-  fadeTitle();
+  // fadeTitle();
 }
 
 document.body.onscroll = handleScroll;
@@ -133,5 +132,28 @@ function animate() {
 
   renderer.render(scene, camera);
 }
+
+const observerOptions = {
+  root: null,
+  rootMargin: "0px",
+  threshold: 0.7,
+};
+
+function observerCallback(entries, observer) {
+  entries.forEach((entry) => {
+    if (entry.isIntersecting) {
+      // fade in observed elements that are in view
+      entry.target.classList.replace("fadeOut", "fadeIn");
+    } else {
+      // fade out observed elements that are not in view
+      entry.target.classList.replace("fadeIn", "fadeOut");
+    }
+  });
+}
+
+const observer = new IntersectionObserver(observerCallback, observerOptions);
+
+const fadeElms = document.querySelectorAll("section");
+fadeElms.forEach((el) => observer.observe(el));
 
 animate();

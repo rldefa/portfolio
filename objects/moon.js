@@ -1,11 +1,19 @@
-import * as THREE from "three";
+import {
+  TextureLoader,
+  SphereGeometry,
+  Mesh,
+  MeshStandardMaterial,
+} from "three";
 
-const moonTexture = new THREE.TextureLoader().load("./assets/moon.jpeg");
-const normalTexture = new THREE.TextureLoader().load("./assets/normal.jpeg");
+import moonpic from "../assets/moon.jpeg";
+import normalmap from "../assets/normal.jpeg";
 
-export const moon = new THREE.Mesh(
-  new THREE.SphereGeometry(3, 32, 32),
-  new THREE.MeshStandardMaterial({
+const moonTexture = new TextureLoader().load(moonpic);
+const normalTexture = new TextureLoader().load(normalmap);
+
+export const moon = new Mesh(
+  new SphereGeometry(3, 32, 32),
+  new MeshStandardMaterial({
     map: moonTexture,
     normalMap: normalTexture,
   })

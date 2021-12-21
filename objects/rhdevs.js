@@ -1,22 +1,22 @@
-import * as THREE from "three";
+import { TextureLoader, Mesh, MeshBasicMaterial, BoxGeometry } from "three";
 
-const textureLoader = new THREE.TextureLoader();
+import img1 from "../assets/devsLogo/main.jpg";
+import img2 from "../assets/devsLogo/fe.jpg";
+import img3 from "../assets/devsLogo/dev.jpg";
 
-const texture0 = textureLoader.load("../assets/devsLogo/main.jpg");
-const texture1 = textureLoader.load("../assets/devsLogo/fe.jpg");
-const texture2 = textureLoader.load("../assets/devsLogo/dev.jpg");
+const textureLoader = new TextureLoader();
+
+const texture0 = textureLoader.load(img1);
+const texture1 = textureLoader.load(img2);
+const texture2 = textureLoader.load(img3);
 
 const materials = [
-  new THREE.MeshBasicMaterial({ map: texture0 }),
-  new THREE.MeshBasicMaterial({ map: texture0 }),
-  new THREE.MeshBasicMaterial({ map: texture1 }),
-  new THREE.MeshBasicMaterial({ map: texture1 }),
-  new THREE.MeshBasicMaterial({ map: texture2 }),
-  new THREE.MeshBasicMaterial({ map: texture2 }),
+  new MeshBasicMaterial({ map: texture0 }),
+  new MeshBasicMaterial({ map: texture0 }),
+  new MeshBasicMaterial({ map: texture1 }),
+  new MeshBasicMaterial({ map: texture1 }),
+  new MeshBasicMaterial({ map: texture2 }),
+  new MeshBasicMaterial({ map: texture2 }),
 ];
-const faceMaterial = new THREE.MeshFaceMaterial(materials);
 
-export const rhdevs = new THREE.Mesh(
-  new THREE.BoxGeometry(5, 5, 5),
-  faceMaterial
-);
+export const rhdevs = new Mesh(new BoxGeometry(5, 5, 5), materials);
