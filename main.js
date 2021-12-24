@@ -71,7 +71,7 @@ scene.background = spaceTexture;
 scene.add(rhdevs);
 
 rhdevs.position.z = 40;
-rhdevs.position.x = 8;
+rhdevs.position.x = -8;
 
 // Moon
 
@@ -144,7 +144,7 @@ function animate() {
 
   moon.rotation.y += 0.01;
 
-  earth.rotation.y += 0.005;
+  earth.rotation.y += 0.01;
 
   rhdevs.rotation.x += rhdevs.rotation.x > 0.3 ? -0.002 : 0.002;
   rhdevs.rotation.y += 0.005;

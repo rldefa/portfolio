@@ -4,6 +4,12 @@
   src: url("https://applesocial.s3.amazonaws.com/assets/styles/fonts/sanfrancisco/sanfranciscodisplay-regular-webfont.woff");
 }
 
+@font-face {
+  font-family: "Goudy";
+  font-weight: 400;
+  src: url("./assets/fonts/OPTIwtcGoudy-LightItalic/OPTIwtcGoudy-LightItalic.otf");
+}
+
 canvas {
   position: fixed;
   top: 0;
@@ -81,7 +87,9 @@ header {
 #header-caption {
   overflow: hidden;
   margin: 0;
-  font-size: 3.5rem;
+  font-family: Goudy;
+  font-size: 2.5rem;
+  text-transform: uppercase;
   -webkit-animation-delay: 0.075s;
   animation-delay: 0.075s;
 }
@@ -129,16 +137,16 @@ section {
 
 blockquote {
   padding: 0;
-  grid-column: 6 / span 8;
-  /* position: sticky;
-  top: 5vh; */
-  /* margin: 0 0 var(--spacing); */
+  grid-column: 5 / span 5;
+  font-family: Goudy;
+  text-transform: uppercase;
+  margin: 30vh 0;
 }
 
 blockquote p {
   color: white;
-  background-color: rgba(15, 15, 15);
-  font-size: 5rem;
+  background-color: none;
+  font-size: 7rem;
   display: inline;
   line-height: 1;
   border-radius: 1rem;
@@ -150,10 +158,16 @@ blockquote p {
   grid-template-columns: repeat(12, 1fr);
 }
 
-blockquote,
 section {
-  grid-column: 2 / 8;
   margin: 30vh 0;
+}
+
+.left {
+  grid-column: 2 / 7;
+}
+
+.right {
+  grid-column: 7 / 12;
 }
 
 .last {
