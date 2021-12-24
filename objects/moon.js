@@ -12,7 +12,7 @@ const moonTexture = new TextureLoader().load(moonpic);
 const normalTexture = new TextureLoader().load(normalmap);
 
 export const moon = new Mesh(
-  new SphereGeometry(3, 32, 32),
+  new SphereGeometry(0.75, 32, 32),
   new MeshStandardMaterial({
     map: moonTexture,
     normalMap: normalTexture,

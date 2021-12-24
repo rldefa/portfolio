@@ -1,9 +1,12 @@
 import "./style.css";
+import "./navbar.css";
 import * as THREE from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 
 import { moon } from "./objects/moon.js";
+import { earth } from "./objects/earth.js";
 import { rhdevs } from "./objects/rhdevs.js";
+import { selfPhoto } from "./objects/portrait.js";
 
 import spacebg from "./assets/milky-way.jpeg";
 
@@ -29,11 +32,11 @@ renderer.render(scene, camera);
 
 // Lights
 
-const pointLight = new THREE.PointLight(0xffffff);
-pointLight.position.set(5, 5, 5);
+// const pointLight = new THREE.PointLight(0xffffff);
+// pointLight.position.set(5, 5, 5);
 
 const ambientLight = new THREE.AmbientLight(0xffffff);
-scene.add(pointLight, ambientLight);
+scene.add(ambientLight);
 
 // Helpers
 
@@ -67,15 +70,22 @@ scene.background = spaceTexture;
 
 scene.add(rhdevs);
 
-rhdevs.position.z = 80;
+rhdevs.position.z = 40;
 rhdevs.position.x = 8;
 
 // Moon
 
+scene.add(earth);
 scene.add(moon);
 
-moon.position.x = 8;
-moon.position.z = 50;
+earth.position.x = 8;
+earth.position.z = 10;
+// Portrait
+
+scene.add(selfPhoto);
+
+selfPhoto.position.x = 5;
+selfPhoto.position.z = 80;
 
 // Scroll Animation
 
@@ -86,9 +96,13 @@ function moveCamera() {
 
   if (t + tiltDistance > 0) {
     camera.rotation.x = (tiltDistance + t) * 0.001;
+  } else {
+    camera.rotation.x = 0;
   }
 
   camera.position.z = 90 + (t + tiltDistance) * 0.01;
+
+  earthAnimation(t);
 }
 
 // function fadeTitle() {
@@ -109,6 +123,12 @@ function moveCamera() {
 //   }
 // }
 
+function earthAnimation(t) {
+  moon.position.x = earth.position.x + 7 * Math.sin(t / 300);
+  moon.position.y = earth.position.y - 1 * Math.sin(t / 300);
+  moon.position.z = earth.position.z - 7 * Math.cos(t / 300);
+}
+
 function handleScroll() {
   moveCamera();
   // fadeTitle();
@@ -122,7 +142,9 @@ handleScroll();
 function animate() {
   requestAnimationFrame(animate);
 
-  moon.rotation.y += 0.005;
+  moon.rotation.y += 0.01;
+
+  earth.rotation.y += 0.005;
 
   rhdevs.rotation.x += rhdevs.rotation.x > 0.3 ? -0.002 : 0.002;
   rhdevs.rotation.y += 0.005;
@@ -132,28 +154,5 @@ function animate() {
 
   renderer.render(scene, camera);
 }
-
-const observerOptions = {
-  root: null,
-  rootMargin: "0px",
-  threshold: 0.7,
-};
-
-function observerCallback(entries, observer) {
-  entries.forEach((entry) => {
-    if (entry.isIntersecting) {
-      // fade in observed elements that are in view
-      entry.target.classList.replace("fadeOut", "fadeIn");
-    } else {
-      // fade out observed elements that are not in view
-      entry.target.classList.replace("fadeIn", "fadeOut");
-    }
-  });
-}
-
-const observer = new IntersectionObserver(observerCallback, observerOptions);
-
-const fadeElms = document.querySelectorAll("section");
-fadeElms.forEach((el) => observer.observe(el));
 
 animate();
