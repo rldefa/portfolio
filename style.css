@@ -10,6 +10,18 @@
   src: url("./assets/fonts/OPTIwtcGoudy-LightItalic/OPTIwtcGoudy-LightItalic.otf");
 }
 
+@font-face {
+  font-family: "Bivoac";
+  font-weight: 800;
+  src: url("./assets/fonts/bivoac-reguler.regular.otf");
+}
+
+@font-face {
+  font-family: "BivoacOutline";
+  font-weight: 800;
+  src: url("./assets/fonts/bivoac-reguler.outline.otf");
+}
+
 canvas {
   position: fixed;
   top: 0;
@@ -17,7 +29,7 @@ canvas {
 }
 
 :root {
-  --dark-bg: rgba(15, 15, 15, 0.95);
+  --dark-bg: rgba(15, 15, 15, 0.97);
   --spacing: 40vh;
 
   font-family: San Francisco, sans-serif;
@@ -81,7 +93,6 @@ header {
   margin: 25vh 0 -10px;
   -webkit-animation-delay: 0;
   animation-delay: 0;
-  font-weight: 100;
 }
 
 #header-caption {
@@ -138,7 +149,7 @@ section {
 blockquote {
   padding: 0;
   grid-column: 5 / span 5;
-  font-family: Goudy;
+  font-family: BivoacOutline;
   text-transform: uppercase;
   margin: 30vh 0;
 }
@@ -163,11 +174,11 @@ section {
 }
 
 .left {
-  grid-column: 2 / 7;
+  grid-column: 2 / 8;
 }
 
-.right {
-  grid-column: 7 / 12;
+.center {
+  grid-column: 4 / 10;
 }
 
 .last {
@@ -220,4 +231,23 @@ section {
 
 .contact-button {
   cursor: url(./assets/rocket.png), pointer;
+}
+
+.contact-img {
+  margin-top: 10px;
+}
+
+.contact-button {
+  height: 110px;
+  width: 110px;
+  border-radius: 1em;
+  transition: all 300ms ease;
+}
+
+.contact-button:hover {
+  background: white;
+}
+
+.contact-button:hover .contact-img {
+  filter: invert();
 }

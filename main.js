@@ -3,10 +3,13 @@ import "./navbar.css";
 import * as THREE from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 
+// 3D Models
 import { moon } from "./objects/moon.js";
 import { earth } from "./objects/earth.js";
 import { rhdevs } from "./objects/rhdevs.js";
 import { selfPhoto } from "./objects/portrait.js";
+import { nus } from "./objects/nus.js";
+import { hwachong } from "./objects/hwachong";
 
 import spacebg from "./assets/milky-way.jpeg";
 
@@ -33,7 +36,7 @@ renderer.render(scene, camera);
 // Lights
 
 // const pointLight = new THREE.PointLight(0xffffff);
-// pointLight.position.set(5, 5, 5);
+// pointLight.position.set(0, 1, 15);
 
 const ambientLight = new THREE.AmbientLight(0xffffff);
 scene.add(ambientLight);
@@ -70,22 +73,37 @@ scene.background = spaceTexture;
 
 scene.add(rhdevs);
 
-rhdevs.position.z = 40;
 rhdevs.position.x = -8;
+rhdevs.position.y = 2;
+rhdevs.position.z = 40;
 
-// Moon
+// Earth and Moon
 
 scene.add(earth);
 scene.add(moon);
 
-earth.position.x = 8;
-earth.position.z = 10;
+earth.position.x = -10;
+earth.position.y = -8;
+earth.position.z = 70;
+
 // Portrait
 
 scene.add(selfPhoto);
 
 selfPhoto.position.x = 5;
 selfPhoto.position.z = 80;
+
+scene.add(nus);
+
+nus.position.x = 4;
+nus.position.y = -2;
+nus.position.z = 15;
+
+scene.add(hwachong);
+
+hwachong.position.x = -4;
+hwachong.position.y = 3;
+hwachong.position.z = 4;
 
 // Scroll Animation
 
@@ -105,24 +123,6 @@ function moveCamera() {
   earthAnimation(t);
 }
 
-// function fadeTitle() {
-//   const header = document.getElementById("header");
-
-//   const distanceToTop = window.pageYOffset + header.getBoundingClientRect().top;
-//   const headerHeight = header.offsetHeight;
-//   const scrollTop = document.documentElement.scrollTop;
-
-//   let opacity = 1;
-
-//   if (scrollTop > distanceToTop) {
-//     opacity = 1 - ((scrollTop - distanceToTop) / headerHeight) * 2;
-//   }
-
-//   if (opacity >= 0) {
-//     header.style.opacity = opacity;
-//   }
-// }
-
 function earthAnimation(t) {
   moon.position.x = earth.position.x + 7 * Math.sin(t / 300);
   moon.position.y = earth.position.y - 1 * Math.sin(t / 300);
@@ -131,7 +131,6 @@ function earthAnimation(t) {
 
 function handleScroll() {
   moveCamera();
-  // fadeTitle();
 }
 
 document.body.onscroll = handleScroll;

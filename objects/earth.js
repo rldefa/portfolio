@@ -12,7 +12,7 @@ const earthTexture = new TextureLoader().load(earthpic);
 const normalTexture = new TextureLoader().load(normalmap);
 
 export const earth = new Mesh(
-  new SphereGeometry(3, 32, 32),
+  new SphereGeometry(2, 32, 32),
   new MeshStandardMaterial({
     map: earthTexture,
     normalMap: normalTexture,

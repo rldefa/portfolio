@@ -19,4 +19,4 @@ const materials = [
   new MeshBasicMaterial({ map: texture0 }),
 ];
 
-export const rhdevs = new Mesh(new BoxGeometry(5, 5, 5), materials);
+export const rhdevs = new Mesh(new BoxGeometry(2, 2, 2), materials);
